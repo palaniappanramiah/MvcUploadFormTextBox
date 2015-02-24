@@ -1,0 +1,64 @@
+﻿@using Microsoft.Web.Helpers;
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+@using (Html.BeginForm("Upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @FileUpload.GetHtml(
+        initialNumberOfFiles: 1,
+        allowMoreFilesToBeAdded: true,
+        includeFormTag: false,
+        addText: "Add another file")
+    <br/>
+    <input type="submit" value="Upload" id="upload" />
+}
+<div style="color:Red;font-size:14px">@Html.Raw(HttpUtility.HtmlDecode(ViewBag.Message))</div>
+
+
+<!--div id="progressBar">
+    <br/>
+    <progress id="status" value="0" max="100"></progress>
+    <div class="percent"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#progressBar').show();
+        if (!localStorage.getItem("visited")) {
+            $('#progressBar').hide();
+            localStorage.setItem("visited", "true");
+        }
+
+        //clear localStorage on tab close
+        window.onbeforeunload = function () {
+            localStorage.removeItem("visited");
+        };
+    });
+
+    (function ()
+    {
+        var percent = $('.percent');
+        var status = $('#status');
+        var progress = $('#progressBar');
+
+        $('form').ajaxForm({
+            beforeSend: function () {
+                var percentVal = '0%';
+                percent.html(percentVal);
+            },
+            uploadProgress: function (event, position, total, percentComplete) {
+                var percentVal = percentComplete + '%';
+                percent.html(percentVal);
+                $('#status').val(percentComplete);
+            },
+            success: function () {
+                var percentVal = '100%';
+                percent.html(percentVal);
+            },
+            complete: function (xhr) {
+                status.html(xhr.responseText);
+            }
+        });
+    })();
+</script-->

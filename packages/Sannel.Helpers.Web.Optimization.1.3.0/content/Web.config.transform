@@ -1,0 +1,11 @@
+﻿<configuration>
+  <system.web>
+	<pages>
+	<controls>
+	  <add assembly="Sannel.Helpers.Web.Optimization"
+		   namespace="Sannel.Web.Optimization"
+		   tagPrefix="webopt" />
+	</controls>
+	</pages>
+  </system.web>
+</configuration>

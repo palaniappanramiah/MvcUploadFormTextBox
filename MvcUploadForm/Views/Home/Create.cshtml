@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+
+
+    <h4>CreateModel</h4>
+    <hr/>
+    
+    <div class="form-horizontal">
+       @Html.Partial("_RepeatPartial")
+    </div>
+
+    @Html.ActionLink("Add another File...", "AddRepeatGroup", null, new { id = "addItem" })
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="UPLOAD" class="btn btn-default"/>
+        </div>
+    </div>
+    
+
+    <div style="font-size:14px">@Html.Raw(HttpUtility.HtmlDecode(ViewBag.Message))</div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+            $(document).ready(function () {
+                AddClickEvents();
+            });
+    </script>
+
+    <script type="text/javascript">
+            function AddClickEvents() {
+                //remove the event first
+                $("#addItem").unbind("click");
+                $("#addItem").click(function () {
+                    $.ajax({
+                        url: this.href,
+                        cache: false,
+                        success: function (html) {
+                            $(".form-horizontal").append(html);
+                            AddClickEvents();
+                        },
+                        error: function (html) {
+                            alert(html);
+                        }
+                    });
+                    return false;
+                });
+            }
+    </script>
+}
